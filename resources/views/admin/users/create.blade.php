@@ -36,7 +36,10 @@
                     </li>
                 </ul>
 
-                <form class="app_form" action="" method="post" enctype="multipart/form-data">
+                <form class="app_form" action="{{ route('admin.users.store') }}" method="post"
+                      enctype="multipart/form-data">
+                    @csrf
+
                     <div class="nav_tabs_content">
                         <div id="data">
                             <div class="label_gc">
@@ -410,9 +413,9 @@
                                                         </div>
                                                         <div class="realty_list_item_card_content">
                                                             <span
-                                                                class="realty_list_item_description_title">Bairro:</span>
+                                                                    class="realty_list_item_description_title">Bairro:</span>
                                                             <span
-                                                                class="realty_list_item_description_content">Campeche</span>
+                                                                    class="realty_list_item_description_content">Campeche</span>
                                                         </div>
                                                     </div>
 
@@ -422,7 +425,7 @@
                                                         </div>
                                                         <div class="realty_list_item_card_content">
                                                             <span
-                                                                class="realty_list_item_description_title">Área Útil:</span>
+                                                                    class="realty_list_item_description_title">Área Útil:</span>
                                                             <span class="realty_list_item_description_content">150m&sup2;</span>
                                                         </div>
                                                     </div>
@@ -433,7 +436,7 @@
                                                         </div>
                                                         <div class="realty_list_item_card_content">
                                                             <span
-                                                                class="realty_list_item_description_title">Domitórios:</span>
+                                                                    class="realty_list_item_description_title">Domitórios:</span>
                                                             <span class="realty_list_item_description_content">4 Quartos<br><span>Sendo 2 suítes</span></span>
                                                         </div>
                                                     </div>
@@ -444,9 +447,9 @@
                                                         </div>
                                                         <div class="realty_list_item_card_content">
                                                             <span
-                                                                class="realty_list_item_description_title">Garagem:</span>
+                                                                    class="realty_list_item_description_title">Garagem:</span>
                                                             <span
-                                                                class="realty_list_item_description_content">4 Vagas<br><span>Sendo 2 cobertas</span></span>
+                                                                    class="realty_list_item_description_content">4 Vagas<br><span>Sendo 2 cobertas</span></span>
                                                         </div>
                                                     </div>
 
