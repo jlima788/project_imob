@@ -16,7 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        $users = User::all();
+        return view('admin.users.index', [
+            'users' => $users
+        ]);
     }
 
     public function team()
@@ -37,7 +40,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request)
@@ -48,7 +51,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -59,30 +62,56 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $user = User::where('id', $id)->first();
+        return view('admin.users.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        $user = User::where('id', $id)->first();
+
+        $user->setLessorAttribute($request->lessor);
+        $user->setLesseeAttribute($request->lessee);
+
+        if (!empty($request->file('cover'))) {
+            Storage::delete($user->cover);
+            Cropper::flush($user->cover);
+            $user->cover = '';
+        }
+
+        $user->fill($request->all());
+
+        if (!empty($request->file('cover'))) {
+            $user->cover = $request->file('cover')->store('user');
+        }
+
+        if (!$user->save()) {
+            return redirect()->back()->withInput()->withErrors();
+        }
+
+        return redirect()->route('admin.users.edit', [
+            'users' => $user->id
+        ])->with(['color' => 'green', 'message' => 'Cliente atualizado com sucesso!']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
