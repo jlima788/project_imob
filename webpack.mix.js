@@ -36,7 +36,6 @@ mix
     .copyDirectory('resources/views/admin/assets/js/tinymce','public/backend/assets/js/tinymce')
 
     .scripts([
-        'resources/views/admin/assets/js/tinymce/tinymce.min.js',
         'resources/views/admin/assets/js/datatables/js/jquery.dataTables.min.js',
         'resources/views/admin/assets/js/datatables/js/dataTables.responsive.min.js',
         'resources/views/admin/assets/js/select2/js/select2.min.js',

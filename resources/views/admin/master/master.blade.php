@@ -94,6 +94,7 @@
 </div>
 
 <script src="{{url(mix('backend/assets/js/jquery.js'))}}"></script>
+<script src="{{url(asset('backend/assets/js/tinymce/tinymce.min.js'))}}"></script>
 <script src="{{url(mix('backend/assets/js/libs.js'))}}"></script>
 <script src="{{url(mix('backend/assets/js/scripts.js'))}}"></script>
 
