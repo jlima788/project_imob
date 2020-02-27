@@ -5,6 +5,8 @@ namespace LaraDev;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
+use LaraDev\Support\Cropper;
 
 class User extends Authenticatable
 {
@@ -87,7 +89,7 @@ class User extends Authenticatable
 
     public function getUrlCoverAttribute()
     {
-        if (!empty($this->cover)) {
+        if(!empty($this->cover)){
             return Storage::url(Cropper::thumb($this->cover, 500, 500));
         }
 
@@ -121,8 +123,7 @@ class User extends Authenticatable
 
     public function getDocumentAttribute($value)
     {
-        return substr($value, 0, 3) . '.' . substr($value, 3, 3) . '.' . substr($value, 6, 3) . '-' . substr($value, 9,
-                2);
+        return substr($value, 0, 3) . '.' . substr($value, 3, 3) . '.' . substr($value, 6, 3) . '-' . substr($value, 9, 2);
     }
 
     public function setDateOfBirthAttribute($value)
@@ -177,8 +178,7 @@ class User extends Authenticatable
 
     public function getSpouseDocumentAttribute($value)
     {
-        return substr($value, 0, 3) . '.' . substr($value, 3, 3) . '.' . substr($value, 6, 3) . '-' . substr($value, 9,
-                2);
+        return substr($value, 0, 3) . '.' . substr($value, 3, 3) . '.' . substr($value, 6, 3) . '-' . substr($value, 9, 2);
     }
 
     public function setSpouseDateOfBirthAttribute($value)
@@ -213,7 +213,7 @@ class User extends Authenticatable
 
     private function convertStringToDouble(?string $param)
     {
-        if (empty($param)) {
+        if(empty($param)){
             return null;
         }
 
@@ -222,7 +222,7 @@ class User extends Authenticatable
 
     private function convertStringToDate(?string $param)
     {
-        if (empty($param)) {
+        if(empty($param)){
             return null;
         }
 
@@ -232,7 +232,7 @@ class User extends Authenticatable
 
     private function clearField(?string $param)
     {
-        if (empty($param)) {
+        if(empty($param)){
             return '';
         }
 

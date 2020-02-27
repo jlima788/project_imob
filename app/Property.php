@@ -3,6 +3,9 @@
 namespace LaraDev;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use LaraDev\Support\Cropper;
 
 class Property extends Model
 {
@@ -67,12 +70,12 @@ class Property extends Model
         $images = $this->images();
         $cover = $images->where('cover', 1)->first(['path']);
 
-        if (!$cover) {
+        if(!$cover) {
             $images = $this->images();
             $cover = $images->first(['path']);
         }
 
-        if (empty($cover['path']) || !File::exists('../public/storage/' . $cover['path'])) {
+        if(empty($cover['path']) || !File::exists('../public/storage/' . $cover['path'])) {
             return url(asset('backend/assets/images/realty.jpeg'));
         }
 
@@ -106,7 +109,7 @@ class Property extends Model
 
     public function setSalePriceAttribute($value)
     {
-        if (empty($value)) {
+        if(empty($value)){
             $this->attributes['sale_price'] = null;
         } else {
             $this->attributes['sale_price'] = floatval($this->convertStringToDouble($value));
@@ -120,7 +123,7 @@ class Property extends Model
 
     public function setRentPriceAttribute($value)
     {
-        if (empty($value)) {
+        if(empty($value)){
             $this->attributes['rent_price'] = null;
         } else {
             $this->attributes['rent_price'] = floatval($this->convertStringToDouble($value));
@@ -134,7 +137,7 @@ class Property extends Model
 
     public function setTributeAttribute($value)
     {
-        if (empty($value)) {
+        if(empty($value)){
             $this->attributes['tribute'] = null;
         } else {
             $this->attributes['tribute'] = floatval($this->convertStringToDouble($value));
@@ -148,7 +151,7 @@ class Property extends Model
 
     public function setCondominiumAttribute($value)
     {
-        if (empty($value)) {
+        if(empty($value)){
             $this->attributes['condominium'] = null;
         } else {
             $this->attributes['condominium'] = floatval($this->convertStringToDouble($value));
@@ -322,7 +325,7 @@ class Property extends Model
 
     private function convertStringToDouble($param)
     {
-        if (empty($param)) {
+        if(empty($param)){
             return null;
         }
 

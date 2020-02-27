@@ -3,8 +3,11 @@
 namespace LaraDev\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use LaraDev\Company;
 use LaraDev\Http\Controllers\Controller;
 use LaraDev\Http\Requests\Admin\User as UserRequest;
+use LaraDev\Support\Cropper;
 use LaraDev\User;
 
 class UserController extends Controller
@@ -22,9 +25,17 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function team()
     {
-        return view('admin.users.team');
+        $users = User::where('admin', 1)->get();
+        return view('admin.users.team', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -40,18 +51,27 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request)
     {
         $userCreate = User::create($request->all());
+
+        if(!empty($request->file('cover'))){
+            $userCreate->cover = $request->file('cover')->store('user');
+            $userCreate->save();
+        }
+
+        return redirect()->route('admin.users.edit', [
+            'users' => $userCreate->id
+        ])->with(['color' => 'green', 'message' => 'Cliente cadastrado com sucesso!']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -62,7 +82,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -76,8 +96,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, $id)
@@ -87,7 +107,7 @@ class UserController extends Controller
         $user->setLessorAttribute($request->lessor);
         $user->setLesseeAttribute($request->lessee);
 
-        if (!empty($request->file('cover'))) {
+        if(!empty($request->file('cover'))){
             Storage::delete($user->cover);
             Cropper::flush($user->cover);
             $user->cover = '';
@@ -95,11 +115,11 @@ class UserController extends Controller
 
         $user->fill($request->all());
 
-        if (!empty($request->file('cover'))) {
+        if(!empty($request->file('cover'))){
             $user->cover = $request->file('cover')->store('user');
         }
 
-        if (!$user->save()) {
+        if(!$user->save()){
             return redirect()->back()->withInput()->withErrors();
         }
 
@@ -111,7 +131,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

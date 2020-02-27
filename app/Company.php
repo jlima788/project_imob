@@ -39,7 +39,7 @@ class Company extends Model
 
     private function clearField(?string $param)
     {
-        if (empty($param)) {
+        if(empty($param)){
             return '';
         }
 

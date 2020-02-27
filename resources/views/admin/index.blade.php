@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/reset.css')) }}"/>
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/boot.css')) }}"/>
     <link rel="stylesheet" href="{{ url(mix('backend/assets/css/login.css')) }}"/>
-    <link rel="icon" type="image/png" href="assets/images/favicon.png"/>
+    <link rel="icon" type="image/png" href="backend/assets/images/favicon.png"/>
 
     <title>UpAdmin - Site Control</title>
 
@@ -25,18 +25,18 @@
                 <h1>Login</h1>
             </header>
 
-            <form name="login" action="{{route('admin.login.do')}}" method="post" autocomplete="off">
+            <form name="login" action="{{ route('admin.login.do') }}" method="post" autocomplete="off">
                 <label>
                     <span class="field icon-envelope">E-mail:</span>
-                    <input type="email" name="email" placeholder="Informe seu e-mail" required/>
+                    <input type="email" name="email" placeholder="Informe seu e-mail" value="jemlima@gmail.com" required/>
                 </label>
 
                 <label>
                     <span class="field icon-unlock-alt">Senha:</span>
-                    <input type="password" name="password_check" placeholder="Informe sua senha" />
+                    <input type="password" name="password_check" placeholder="Informe sua senha"/>
                 </label>
 
-                <button class="gradient gradient-orange radius icon-sign-in">Entrar</button>
+                <button class="gradient gradient-orange radius icon-sign-in" type="submit">Entrar</button>
             </form>
 
             <footer>
@@ -56,8 +56,8 @@
 
 </div>
 
-<script src="{{url(mix('backend/assets/js/jquery.js'))}}"></script>
-<script src="{{url(mix('backend/assets/js/login.js'))}}"></script>
+<script src="{{ url(mix('backend/assets/js/jquery.js')) }}"></script>
+<script src="{{ url(mix('backend/assets/js/login.js')) }}"></script>
 
 </body>
 </html>

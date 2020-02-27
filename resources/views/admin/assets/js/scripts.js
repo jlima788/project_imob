@@ -202,8 +202,8 @@ $(function () {
     });
 
     // ENABLE INPUT TO PRICE
-    $('input[type="checkbox"][name="sale"]').change(function () {
-        if ($(this).get(0).checked) {
+    $('input[type="checkbox"][name="sale"]').change(function(){
+        if($(this).get(0).checked) {
             $('input[name="sale_price"]').attr('disabled', false);
         } else {
             $('input[name="sale_price"]').attr('disabled', true);
@@ -211,8 +211,8 @@ $(function () {
     });
 
     // ENABLE INPUT TO PRICE
-    $('input[type="checkbox"][name="rent"]').change(function () {
-        if ($(this).get(0).checked) {
+    $('input[type="checkbox"][name="rent"]').change(function(){
+        if($(this).get(0).checked) {
             $('input[name="rent_price"]').attr('disabled', false);
         } else {
             $('input[name="rent_price"]').attr('disabled', true);
@@ -229,6 +229,7 @@ tinyMCE.init({
     menubar: false,
     theme: "modern",
     height: 132,
+    sourceCodeEncoding: /^[22204]{8}&/,
     skin: 'light',
     entity_encoding: "raw",
     theme_advanced_resizing: true,
